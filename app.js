@@ -32,18 +32,36 @@ const elements = {
   toast: $("#toast")
 };
 
+const demoRows = [
+  { name: "珍珠奶茶", quantity: 86, price: 12, cost: 4.2 },
+  { name: "杨枝甘露", quantity: 54, price: 18, cost: 7.5 },
+  { name: "手打柠檬茶", quantity: 73, price: 10, cost: 3.1 },
+  { name: "芋泥波波奶茶", quantity: 38, price: 16, cost: 6.2 }
+];
+
 let nextRowId = 1;
 let toastTimer;
+
+function escapeAttribute(value = "") {
+  return String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
 
 function createRow(values = {}) {
   const id = nextRowId++;
   const row = document.createElement("article");
   row.className = "sales-row";
   row.dataset.rowId = String(id);
+  const name = escapeAttribute(values.name || "");
   row.innerHTML = `
     <label class="field name">
-      <span class="field-label">商品名称</span>
-      <input class="product-name" type="text" placeholder="例如：旗舰礼盒" value="${values.name || ""}" aria-label="商品名称">
+      <span class="field-label">饮品名称</span>
+      <input class="product-name" type="text" placeholder="例如：珍珠奶茶" value="${name}" aria-label="饮品名称">
     </label>
     <label class="field">
       <span class="field-label">销量</span>
@@ -58,8 +76,8 @@ function createRow(values = {}) {
       <input class="cost-price" type="number" min="0" step="0.01" placeholder="0.00" value="${values.cost || ""}" aria-label="成本价">
     </label>
     <div class="amount-wrap">
-      <span class="field-label">销售额</span>
-      <span class="amount" aria-label="销售额">${currency.format(0)}</span>
+      <span class="field-label">营业额</span>
+      <span class="amount" aria-label="营业额">${currency.format(0)}</span>
     </div>
     <div class="profit-wrap">
       <span class="field-label">毛利</span>
@@ -129,10 +147,10 @@ function calculateReport() {
   const leader = orderedRows[0];
   elements.emptyReport.hidden = true;
   elements.reportContent.hidden = false;
-  elements.reportLead.innerHTML = `${getSelectedDateText()}共销售 <strong>${quantity}</strong> 件商品，实现销售额 <strong>${currency.format(total)}</strong>，总成本 <strong>${currency.format(totalCost)}</strong>，毛利 <strong>${currency.format(totalProfit)}</strong>，综合毛利率 <strong>${formatRate(totalProfitRate)}</strong>。销售贡献最高的商品为 <strong>${leader.name}</strong>。`;
+  elements.reportLead.innerHTML = `${getSelectedDateText()}共售出 <strong>${quantity}</strong> 杯饮品，实现营业额 <strong>${currency.format(total)}</strong>，原料成本 <strong>${currency.format(totalCost)}</strong>，毛利 <strong>${currency.format(totalProfit)}</strong>，综合毛利率 <strong>${formatRate(totalProfitRate)}</strong>。营业额最高的饮品为 <strong>${leader.name}</strong>。`;
   elements.ranking.innerHTML = orderedRows.map((row, index) => `
     <div class="ranking-item">
-      <span>${index + 1}. ${row.name} · ${row.quantity} 件 · 销售 ${currency.format(row.amount)}</span>
+      <span>${index + 1}. ${row.name} · ${row.quantity} 杯 · 营业额 ${currency.format(row.amount)}</span>
       <strong${row.profit < 0 ? ' class="negative"' : ""}>毛利 ${currency.format(row.profit)}</strong>
     </div>
   `).join("");
@@ -156,19 +174,19 @@ async function copySummary() {
   const totalProfit = rows.reduce((sum, row) => sum + row.profit, 0);
   const totalProfitRate = total ? (totalProfit / total) * 100 : 0;
   const text = [
-    `销售日报 - ${getSelectedDateText()}`,
-    `总销售额：${currency.format(total)}`,
-    `总成本：${currency.format(totalCost)}`,
+    `奶茶店销售日报 - ${getSelectedDateText()}`,
+    `总营业额：${currency.format(total)}`,
+    `原料成本：${currency.format(totalCost)}`,
     `总毛利：${currency.format(totalProfit)}（毛利率 ${formatRate(totalProfitRate)}）`,
-    `总销量：${rows.reduce((sum, row) => sum + row.quantity, 0)} 件`,
+    `总销量：${rows.reduce((sum, row) => sum + row.quantity, 0)} 杯`,
     "",
-    "商品明细：",
-    ...rows.map((row, index) => `${index + 1}. ${row.name} | 销量 ${row.quantity} | 售价 ${currency.format(row.price)} | 成本价 ${currency.format(row.costPrice)} | 销售额 ${currency.format(row.amount)} | 毛利 ${currency.format(row.profit)} (${formatRate(row.profitRate)})`)
+    "饮品明细：",
+    ...rows.map((row, index) => `${index + 1}. ${row.name} | 销量 ${row.quantity}杯 | 售价 ${currency.format(row.price)} | 成本价 ${currency.format(row.costPrice)} | 营业额 ${currency.format(row.amount)} | 毛利 ${currency.format(row.profit)} (${formatRate(row.profitRate)})`)
   ].join("\n");
 
   try {
     await navigator.clipboard.writeText(text);
-    showToast("日报摘要已复制");
+    showToast("微信群日报已复制");
   } catch {
     showToast("当前无法复制，请手动选择文本");
   }
@@ -195,8 +213,9 @@ function wireActions() {
 
 function init() {
   elements.reportDate.value = dateValueFormatter.format(new Date());
-  createRow();
-  createRow();
+  const params = new URLSearchParams(window.location.search);
+  const initialRows = params.get("demo") === "1" ? demoRows : [{}, {}];
+  initialRows.forEach((row) => createRow(row));
   wireActions();
 }
 

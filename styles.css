@@ -1,16 +1,16 @@
 :root {
-  --navy: #17243a;
-  --blue: #3f72d8;
-  --blue-dark: #2455b2;
-  --cyan: #eef6ff;
-  --page: #f6f1e9;
+  --navy: #2b241f;
+  --blue: #b5753c;
+  --blue-dark: #875022;
+  --cyan: #fff6ea;
+  --page: #f8efe3;
   --surface: #ffffff;
   --surface-soft: rgba(255, 255, 255, 0.78);
   --line: #e5dccf;
   --text: #162238;
   --muted: #748092;
-  --green: #207b65;
-  --green-bg: #eaf8f2;
+  --green: #207864;
+  --green-bg: #eaf7f1;
   --orange: #9a6418;
   --orange-bg: #fff4dd;
   --danger: #bd3947;
@@ -30,9 +30,9 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 8% 6%, rgba(255, 213, 138, 0.45) 0, transparent 30%),
-    radial-gradient(circle at 88% 2%, rgba(138, 179, 255, 0.34) 0, transparent 28%),
-    linear-gradient(145deg, #fbf7ef 0%, #eff5ff 46%, #f7f1e9 100%);
+    radial-gradient(circle at 8% 6%, rgba(235, 174, 98, 0.45) 0, transparent 30%),
+    radial-gradient(circle at 88% 2%, rgba(126, 197, 174, 0.28) 0, transparent 28%),
+    linear-gradient(145deg, #fff7eb 0%, #f3fbf7 46%, #f7eee2 100%);
   font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
 }
 
@@ -50,13 +50,13 @@ body {
 .page-glow.one {
   top: 8%;
   left: -120px;
-  background: #ffe0a8;
+  background: #efbe7c;
 }
 
 .page-glow.two {
   right: -130px;
   bottom: 6%;
-  background: #bdd6ff;
+  background: #bce7d8;
 }
 
 button,
@@ -91,7 +91,7 @@ input:focus-visible {
   border-radius: 28px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.58)),
-    linear-gradient(135deg, rgba(255, 226, 180, 0.5), rgba(221, 235, 255, 0.7));
+    linear-gradient(135deg, rgba(255, 224, 179, 0.52), rgba(221, 246, 236, 0.72));
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
 }
@@ -181,8 +181,13 @@ h1 {
 }
 
 .summary-card strong {
-  font-size: clamp(26px, 4vw, 34px);
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
+}
+
+.summary-card:not(.primary) strong {
+  font-size: clamp(23px, 2.5vw, 30px);
 }
 
 .summary-card.primary {
@@ -191,7 +196,7 @@ h1 {
   background:
     radial-gradient(circle at 90% 0%, rgba(255, 255, 255, 0.26), transparent 38%),
     linear-gradient(128deg, var(--blue), var(--blue-dark));
-  box-shadow: 0 18px 36px rgba(63, 114, 216, 0.25);
+  box-shadow: 0 18px 36px rgba(181, 117, 60, 0.24);
 }
 
 .summary-card.primary p {
@@ -246,11 +251,11 @@ h2 {
 .copy-button {
   min-height: 44px;
   padding: 0 17px;
-  border: 1px solid rgba(63, 114, 216, 0.16);
+  border: 1px solid rgba(181, 117, 60, 0.18);
   border-radius: 999px;
-  color: #2455b2;
+  color: var(--blue-dark);
   background: linear-gradient(180deg, #ffffff, var(--cyan));
-  box-shadow: 0 8px 18px rgba(63, 114, 216, 0.08);
+  box-shadow: 0 8px 18px rgba(181, 117, 60, 0.1);
   font-size: 14px;
   font-weight: 600;
 }

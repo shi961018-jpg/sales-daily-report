@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奶茶店销售日报生成器介绍视频</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        color: #261d18;
+        background:
+          radial-gradient(circle at 12% 10%, rgba(237, 184, 116, 0.55), transparent 30%),
+          radial-gradient(circle at 86% 12%, rgba(128, 205, 178, 0.34), transparent 30%),
+          linear-gradient(135deg, #fff4e3, #f2fbf7 52%, #f8eadb);
+        font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+      }
+
+      .stage {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        padding: 40px 58px;
+      }
+
+      .badge {
+        display: inline-flex;
+        padding: 9px 16px;
+        border-radius: 999px;
+        color: #875022;
+        background: rgba(255, 255, 255, 0.65);
+        box-shadow: 0 10px 30px rgba(99, 63, 31, 0.12);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+      }
+
+      h1 {
+        max-width: 640px;
+        margin: 20px 0 12px;
+        font-size: 58px;
+        line-height: 1.04;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        max-width: 575px;
+        margin: 0;
+        color: #6d5f55;
+        font-size: 23px;
+        line-height: 1.5;
+      }
+
+      .phone {
+        position: absolute;
+        right: 68px;
+        top: 40px;
+        width: 330px;
+        height: 548px;
+        padding: 20px;
+        border: 12px solid #2b241f;
+        border-radius: 46px;
+        background: #fffaf3;
+        box-shadow: 0 34px 76px rgba(46, 32, 20, 0.28);
+      }
+
+      .phone-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+
+      .phone-title {
+        font-size: 22px;
+        font-weight: 800;
+      }
+
+      .copy-pill {
+        padding: 8px 12px;
+        border-radius: 999px;
+        color: #fff;
+        background: linear-gradient(135deg, #b5753c, #875022);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .metric {
+        margin-bottom: 11px;
+        padding: 15px 16px;
+        border-radius: 24px;
+        background: #ffffff;
+        box-shadow: 0 12px 26px rgba(70, 51, 34, 0.1);
+      }
+
+      .metric p {
+        margin: 0 0 8px;
+        color: #7a6e64;
+        font-size: 14px;
+      }
+
+      .metric strong {
+        display: block;
+        color: #207864;
+        font-size: 29px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 9px;
+        padding: 11px 14px;
+        border-radius: 18px;
+        background: #fff3e5;
+        color: #58483c;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .script {
+        position: absolute;
+        left: 58px;
+        bottom: 48px;
+        width: 580px;
+        padding: 20px 24px;
+        border-radius: 28px;
+        color: #fff;
+        background: rgba(43, 36, 31, 0.9);
+        box-shadow: 0 24px 55px rgba(43, 36, 31, 0.2);
+        font-size: 22px;
+        line-height: 1.45;
+      }
+
+      .highlight {
+        color: #ffd69f;
+        font-weight: 800;
+      }
+
+      .progress {
+        position: absolute;
+        left: 58px;
+        right: 58px;
+        bottom: 18px;
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(43, 36, 31, 0.12);
+      }
+
+      .progress::before {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #b5753c, #207864);
+        content: "";
+        transform-origin: left;
+        animation: progress 30s linear forwards;
+      }
+
+      .phone,
+      .metric,
+      .script {
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .metric:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+
+      .metric:nth-child(4) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      @keyframes progress {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage">
+      <span class="badge">MILK TEA DAILY REPORT</span>
+      <h1>奶茶店每天 1 分钟生成销售日报</h1>
+      <p class="lead">店员只要输入饮品销量、售价和成本价，页面自动算营业额、毛利和毛利率，适合下班后直接发微信群。</p>
+
+      <section class="phone" aria-label="产品演示">
+        <div class="phone-top">
+          <span class="phone-title">今日日报</span>
+          <span class="copy-pill">复制到微信群</span>
+        </div>
+        <div class="metric">
+          <p>总营业额</p>
+          <strong>¥3,342.00</strong>
+        </div>
+        <div class="metric">
+          <p>总毛利</p>
+          <strong>¥2,113.90</strong>
+        </div>
+        <div class="metric">
+          <p>综合毛利率</p>
+          <strong>63.25%</strong>
+        </div>
+        <div class="row">
+          <span>珍珠奶茶</span>
+          <span>86 杯</span>
+        </div>
+        <div class="row">
+          <span>手打柠檬茶</span>
+          <span>73 杯</span>
+        </div>
+        <div class="row">
+          <span>杨枝甘露</span>
+          <span>54 杯</span>
+        </div>
+      </section>
+
+      <section class="script">
+        <span class="highlight">可运行工具 + 操作说明 + 展示截图 + 30 秒介绍视频 + 报价单</span><br>
+        适合展示给奶茶店、小吃店、夫妻店客户。
+      </section>
+
+      <div class="progress" aria-hidden="true"></div>
+    </main>
+  </body>
+</html>
