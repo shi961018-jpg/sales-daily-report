@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0e2238">
+    <title>销售日报生成器</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div>
+          <p class="kicker">SALES DAILY REPORT</p>
+          <h1>销售日报生成器</h1>
+          <p class="subtitle">输入今日销售数据，自动生成可展示给客户的业绩摘要。</p>
+        </div>
+        <div class="date-card">
+          <label for="reportDate">报表日期</label>
+          <input id="reportDate" class="date-input" type="date" aria-label="选择日报日期">
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="销售概览">
+        <article class="summary-card primary">
+          <p>总销售额</p>
+          <strong id="grandTotal">¥0.00</strong>
+        </article>
+        <article class="summary-card">
+          <p>商品种类</p>
+          <strong id="productCount">0</strong>
+        </article>
+        <article class="summary-card">
+          <p>总销量</p>
+          <strong id="quantityTotal">0</strong>
+        </article>
+        <article class="summary-card cost-card">
+          <p>总成本</p>
+          <strong id="costTotal">¥0.00</strong>
+        </article>
+        <article class="summary-card profit-card">
+          <p>总毛利</p>
+          <strong id="profitTotal">¥0.00</strong>
+        </article>
+        <article class="summary-card rate-card">
+          <p>综合毛利率</p>
+          <strong id="profitRate">0.00%</strong>
+        </article>
+      </section>
+
+      <section class="editor-card" aria-labelledby="entryTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-tag">今日录入</p>
+            <h2 id="entryTitle">商品销售明细</h2>
+          </div>
+          <button class="add-button" id="addRowButton" type="button">+ 添加商品</button>
+        </div>
+
+        <div class="table-heading" aria-hidden="true">
+          <span>商品名称</span>
+          <span>销量</span>
+          <span>售价</span>
+          <span>成本价</span>
+          <span>销售额</span>
+          <span>毛利</span>
+          <span></span>
+        </div>
+        <div class="sales-list" id="salesList"></div>
+      </section>
+
+      <section class="report-card" aria-labelledby="reportTitle">
+        <div class="section-heading report-heading">
+          <div>
+            <p class="section-tag">自动报告</p>
+            <h2 id="reportTitle">客户展示摘要</h2>
+          </div>
+          <button class="copy-button" id="copyButton" type="button">一键复制日报</button>
+        </div>
+        <div class="empty-report" id="emptyReport">录入商品信息后，这里会自动生成销售摘要。</div>
+        <div class="report-content" id="reportContent" hidden>
+          <p class="report-lead" id="reportLead"></p>
+          <div class="ranking" id="ranking"></div>
+          <p class="report-note">注：本报表根据录入数据自动计算，用于销售沟通与客户展示。</p>
+        </div>
+      </section>
+
+      <p class="toast" id="toast" role="status" aria-live="polite"></p>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
