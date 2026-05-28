@@ -29,6 +29,8 @@ const elements = {
   reportLead: $("#reportLead"),
   ranking: $("#ranking"),
   copy: $("#copyButton"),
+  voiceAudio: $("#voiceAudio"),
+  voiceButton: $("#voiceButton"),
   toast: $("#toast")
 };
 
@@ -209,6 +211,26 @@ function wireActions() {
     calculateReport();
   });
   elements.copy.addEventListener("click", copySummary);
+  elements.voiceButton.addEventListener("click", async () => {
+    if (elements.voiceAudio.paused) {
+      try {
+        await elements.voiceAudio.play();
+      } catch {
+        showToast("浏览器暂时无法播放，请点音频控件");
+      }
+      return;
+    }
+    elements.voiceAudio.pause();
+  });
+  elements.voiceAudio.addEventListener("play", () => {
+    elements.voiceButton.textContent = "暂停配音";
+  });
+  elements.voiceAudio.addEventListener("pause", () => {
+    elements.voiceButton.textContent = "播放我的配音";
+  });
+  elements.voiceAudio.addEventListener("ended", () => {
+    elements.voiceButton.textContent = "重新播放配音";
+  });
 }
 
 function init() {
