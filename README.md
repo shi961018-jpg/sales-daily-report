@@ -19,7 +19,6 @@ https://shi961018-jpg.github.io/sales-daily-report/?demo=1
 | `index.html` | 工具主页面 |
 | `styles.css` | 页面样式 |
 | `app.js` | 自动计算和复制日报功能 |
-| `assets/my-voice.m4a` | 老板本人配音音频 |
 | `操作说明.md` | 给客户看的使用说明 |
 | `报价单.md` | 简单报价单 |
 | `intro-video.html` | 30 秒介绍视频录制页 |
@@ -33,7 +32,6 @@ https://shi961018-jpg.github.io/sales-daily-report/?demo=1
 - 自动汇总总营业额、总销量、总成本、总毛利和毛利率。
 - 自动生成微信群日报文案。
 - 点击按钮复制日报内容。
-- 点击按钮播放老板本人配音。
 - 手机端自适应。
 
 ## 本地运行

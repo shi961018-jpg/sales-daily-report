@@ -152,61 +152,6 @@ h1 {
   margin-bottom: 22px;
 }
 
-.voice-card {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  align-items: center;
-  margin-bottom: 22px;
-  padding: 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at 96% 8%, rgba(181, 117, 60, 0.12), transparent 36%),
-    rgba(255, 255, 255, 0.84);
-  box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(16px);
-}
-
-.voice-card h2 {
-  margin-bottom: 8px;
-}
-
-.voice-card p:not(.section-tag) {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.voice-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  min-width: min(100%, 510px);
-}
-
-.voice-button {
-  min-height: 46px;
-  padding: 0 18px;
-  border: 0;
-  border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-  box-shadow: 0 12px 24px rgba(181, 117, 60, 0.22);
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.voice-button:hover {
-  transform: translateY(-1px);
-}
-
-.voice-actions audio {
-  width: 300px;
-  max-width: 100%;
-}
-
 .summary-card {
   position: relative;
   overflow: hidden;
@@ -527,23 +472,6 @@ h2 {
   .summary-grid {
     grid-template-columns: 1fr 1fr;
     gap: 9px;
-  }
-
-  .voice-card {
-    display: block;
-    padding: 18px;
-    border-radius: 22px;
-  }
-
-  .voice-actions {
-    display: grid;
-    min-width: 0;
-    margin-top: 14px;
-  }
-
-  .voice-button,
-  .voice-actions audio {
-    width: 100%;
   }
 
   .summary-card {
