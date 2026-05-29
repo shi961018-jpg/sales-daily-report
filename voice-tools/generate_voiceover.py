@@ -47,7 +47,37 @@ def convert_reference_to_wav(reference: Path, output_dir: Path) -> Path:
     return wav_path
 
 
-def generate(script_path: Path, reference_path: Path, output_path: Path, speed: float) -> None:
+def clean_reference_wav(reference_wav: Path, output_dir: Path) -> Path:
+    import librosa
+    import numpy as np
+    import soundfile
+
+    audio, sample_rate = librosa.load(str(reference_wav), sr=24000, mono=True)
+    intervals = librosa.effects.split(audio, top_db=34)
+    if len(intervals):
+        audio = np.concatenate([audio[start:end] for start, end in intervals])
+
+    audio, _ = librosa.effects.trim(audio, top_db=28)
+    if audio.size == 0:
+        return reference_wav
+
+    peak = float(np.max(np.abs(audio)))
+    if peak > 0:
+        audio = audio * min(0.95 / peak, 4.0)
+
+    cleaned_path = output_dir / "reference-voice-clean.wav"
+    soundfile.write(str(cleaned_path), audio, sample_rate, subtype="PCM_16")
+    return cleaned_path
+
+
+def generate(
+    script_path: Path,
+    reference_path: Path,
+    output_path: Path,
+    speed: float,
+    tau: float,
+    clean_reference: bool,
+) -> None:
     if not script_path.exists():
         raise FileNotFoundError(f"Script file not found: {script_path}")
     if not reference_path.exists():
@@ -78,6 +108,8 @@ def generate(script_path: Path, reference_path: Path, output_path: Path, speed: 
     with tempfile.TemporaryDirectory(prefix="voiceover-", dir=ROOT / "voice-tools") as temp_dir:
         temp_path = Path(temp_dir)
         reference_wav = convert_reference_to_wav(reference_path, temp_path)
+        if clean_reference:
+            reference_wav = clean_reference_wav(reference_wav, temp_path)
         source_path = temp_path / "site-voiceover-base.wav"
 
         target_se = tone_color_converter.extract_se(str(reference_wav))
@@ -92,6 +124,7 @@ def generate(script_path: Path, reference_path: Path, output_path: Path, speed: 
             src_se=source_se,
             tgt_se=target_se,
             output_path=str(output_path),
+            tau=tau,
             message="sales-daily-report",
         )
 
@@ -103,10 +136,19 @@ def main() -> None:
     parser.add_argument("--script", type=Path, default=DEFAULT_SCRIPT)
     parser.add_argument("--reference", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--speed", type=float, default=1.04)
+    parser.add_argument("--speed", type=float, default=0.98)
+    parser.add_argument("--tau", type=float, default=0.22)
+    parser.add_argument("--no-clean-reference", action="store_true")
     args = parser.parse_args()
 
-    generate(args.script, args.reference, args.output, args.speed)
+    generate(
+        args.script,
+        args.reference,
+        args.output,
+        args.speed,
+        args.tau,
+        not args.no_clean_reference,
+    )
 
 
 if __name__ == "__main__":

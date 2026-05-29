@@ -45,7 +45,7 @@ https://shi961018-jpg.github.io/sales-daily-report/?demo=1
 重新生成配音时，在本地传入授权参考音频：
 
 ```bash
-python voice-tools/generate_voiceover.py --reference /path/to/reference-voice.m4a
+python voice-tools/generate_voiceover.py --reference /path/to/reference-voice.m4a --speed 0.98 --tau 0.22
 ```
 
 ## 本地运行
