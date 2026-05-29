@@ -1,0 +1,7 @@
+.DS_Store
+.venv-voice/
+voice-tools/OpenVoice/
+voice-tools/voiceover-*/
+voice-tools/reference-voice.*
+generated-audio/reference-voice.wav
+generated-audio/*-base.wav

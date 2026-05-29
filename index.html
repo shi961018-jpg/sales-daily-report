@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2b241f">
     <title>奶茶店销售日报生成器</title>
-    <link rel="stylesheet" href="./styles.css?v=milk-tea-v2">
+    <link rel="stylesheet" href="./styles.css?v=milk-tea-v3">
   </head>
   <body>
     <div class="page-glow one" aria-hidden="true"></div>
@@ -22,6 +22,18 @@
           <input id="reportDate" class="date-input" type="date" aria-label="选择日报日期">
         </div>
       </header>
+
+      <section class="voice-card" aria-labelledby="voiceTitle">
+        <div>
+          <p class="section-tag">网站介绍配音</p>
+          <h2 id="voiceTitle">听一遍这个工具能做什么</h2>
+          <p>这段配音朗读的是网站介绍词，声音由授权参考样本生成，网页不会播放参考样本。</p>
+        </div>
+        <div class="voice-actions">
+          <button class="voice-button" id="voiceButton" type="button">播放介绍配音</button>
+          <audio id="voiceAudio" controls preload="metadata" src="./generated-audio/site-voiceover.wav"></audio>
+        </div>
+      </section>
 
       <section class="summary-grid" aria-label="销售概览">
         <article class="summary-card primary">
@@ -90,6 +102,6 @@
       <p class="toast" id="toast" role="status" aria-live="polite"></p>
     </main>
 
-    <script src="./app.js?v=milk-tea-v2"></script>
+    <script src="./app.js?v=milk-tea-v3"></script>
   </body>
 </html>

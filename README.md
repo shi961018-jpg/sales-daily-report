@@ -22,6 +22,10 @@ https://shi961018-jpg.github.io/sales-daily-report/?demo=1
 | `操作说明.md` | 给客户看的使用说明 |
 | `报价单.md` | 简单报价单 |
 | `intro-video.html` | 30 秒介绍视频录制页 |
+| `voiceover-script.txt` | 网站介绍配音文案 |
+| `generated-audio/site-voiceover.wav` | 使用授权参考音色生成的网站介绍配音 |
+| `voice-tools/generate_voiceover.py` | 根据配音文案和参考录音重新生成配音的脚本 |
+| `deliverables/intro-video-voiceover.m4v` | 已合成网站介绍配音的视频 |
 | `deliverables/showcase-screenshot.png` | 展示截图 |
 | `deliverables/intro-video.m4v` | 30 秒介绍视频 |
 
@@ -33,6 +37,16 @@ https://shi961018-jpg.github.io/sales-daily-report/?demo=1
 - 自动生成微信群日报文案。
 - 点击按钮复制日报内容。
 - 手机端自适应。
+
+## 配音说明
+
+`voiceover-script.txt` 是实际朗读的网站介绍文案。参考录音只用于提取授权音色，不会把原录音内容放进网站。
+
+重新生成配音时，在本地传入授权参考音频：
+
+```bash
+python voice-tools/generate_voiceover.py --reference /path/to/reference-voice.m4a
+```
 
 ## 本地运行
 
